@@ -1,0 +1,19 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>images/lapsbutton.png</file>
+        <file>images/playbutton.png</file>
+        <file>images/refresh-icon.png</file>
+        <file>images/resetbutton.png</file>
+        <file>images/stopbutton.png</file>
+    </qresource>
+    <qresource prefix="/fonts">
+        <file>fonts/digital-7.ttf</file>
+        <file>fonts/DS-DIGI.TTF</file>
+        <file>fonts/DS-DIGII.TTF</file>
+    </qresource>
+    <qresource prefix="/sounds">
+        <file>sounds/beep-4.wav</file>
+        <file>sounds/beep-6.wav</file>
+        <file>sounds/beep-9.wav</file>
+    </qresource>
+</RCC>

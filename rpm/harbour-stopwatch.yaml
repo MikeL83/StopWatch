@@ -1,0 +1,28 @@
+Name: harbour-stopwatch
+Summary: StopWatch Application for SailfishOS
+Version: 1.0
+Release: 1
+Group: Qt/Qt
+License: LICENSE
+Sources:
+- '%{name}-%{version}.tar.bz2'
+Description: |2+
+
+Configure: none
+Builder: qtc5
+PkgConfigBR:
+- sailfishapp
+- Qt5Quick
+- Qt5Qml
+- Qt5Core
+Requires:
+- sailfishsilica-qt5
+Files:
+- /usr/share/icons/hicolor/86x86/apps
+- /usr/share/harbour-stopwatch
+- /usr/share/applications/harbour-stopwatch.desktop
+- /usr/bin/harbour-stopwatch
+- /usr/bin
+- /usr/share/icons/hicolor/86x86/apps/
+- /usr/share/applications
+PkgBR: []
