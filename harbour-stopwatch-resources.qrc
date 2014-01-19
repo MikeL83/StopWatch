@@ -5,6 +5,7 @@
         <file>images/refresh-icon.png</file>
         <file>images/resetbutton.png</file>
         <file>images/stopbutton.png</file>
+        <file>images/harbour-stopwatch.png</file>
     </qresource>
     <qresource prefix="/fonts">
         <file>fonts/digital-7.ttf</file>
