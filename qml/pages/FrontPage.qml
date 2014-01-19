@@ -4,6 +4,7 @@ import QtQuick.LocalStorage 2.0 as Sql
 import "components"
 import "scripts/StopWatch.js" as Stopwatch
 import "scripts/StopWatchDB.js" as SwDB
+import "scripts/HelperVariables.js" as HV
 
 //FrontPage.qml
 
@@ -29,6 +30,9 @@ Page {
             repeat: true
             onTriggered: {
                 Stopwatch.startCounter();
+                HV.COVERCOUNTER.htext = counterview.htext;
+                HV.COVERCOUNTER.mtext = counterview.mtext;
+                HV.COVERCOUNTER.stext = counterview.stext;
             }
         }
 
@@ -52,7 +56,7 @@ Page {
                 text: "Laps"
                 onClicked: {
                     Stopwatch.updateLaps();
-                    pageStack.push(Qt.resolvedUrl("LapsPage.qml"),{"laps": Stopwatch.laps});
+                    pageStack.push(Qt.resolvedUrl("LapsPage.qml"),{"laps": Stopwatch.LAPS});
                 }
             }
             MenuItem {
@@ -79,7 +83,7 @@ Page {
                 topMargin: 40
                 left: counterview.left
             }
-            transform: Translate{x: -Theme.paddingLarge*2}
+            transform: Translate{x: -Theme.paddingLarge}
             text: "Elapsed Time"
             font.pixelSize: Theme.fontSizeLarge
             font.family: Theme.fontFamily
@@ -102,9 +106,9 @@ Page {
                 top: counterview.bottom
                 horizontalCenter: parent.horizontalCenter
             }
-            text: "Laps" + "   " + lapnum
-            font.pixelSize: 32
-            color: Theme.secondaryColor
+            text: "Lap" + "   " + lapnum
+            font.pixelSize: 45
+            color: Theme.primaryColor
 
             Component.onCompleted: {
                 anchors.topMargin = counterview.rh + Theme.paddingLarge
@@ -124,16 +128,23 @@ Page {
                     id: resetbutton
                     icon.source: "qrc:/images/images/resetbutton.png"
                     state: "released"
+                    scale: 1.1
                     hoverEnabled: true
 
                     onClicked: {
                         timer.stop();
+                        Stopwatch.ISTIMERRUNNING = false;
                         SwDB.saveLap(starttime,Stopwatch.totalTime(),Stopwatch.minlap(),Stopwatch.maxlap(),
-                                     Stopwatch.meanlap(),Stopwatch.laps.length,"","");
+                                     Stopwatch.meanlap(),Stopwatch.LAPS.length,"","");
                         lapnum = 0;
                         Stopwatch.resetTime();
-                        Stopwatch.laps = [];
+                        Stopwatch.LAPS = [];
                         lapbutton.enabled = false;
+                        HV.COVERCOUNTER.htext = counterview.htext;
+                        HV.COVERCOUNTER.mtext = counterview.mtext;
+                        HV.COVERCOUNTER.stext = counterview.stext;
+                        HV.ISTIMERRUNNING = false;
+                        HV.TIMESBEFORESLEEP = [0,0,0.0];
                     }
                     onPressed: resetbutton.state = "pressed";
                     onReleased: resetbutton.state = "released";
@@ -180,23 +191,11 @@ Page {
             Column {
                 spacing: 0
                 IconButton {
-                    //text: "Lap"
                     id: startbutton
                     icon.source: "qrc:/images/images/playbutton.png"
+                    scale: 1.1
                     onPressed: {
                         timer.running == false ? timer.start() : timer.stop();
-                        if (lapnum === 0) {
-                            lapnum = 1;
-                            lapbutton.enabled = true;
-                            starttime = Stopwatch.setStartTime();
-
-                        }
-                        if (Stopwatch.laps.length > 0) {
-                            Stopwatch.updateLaps();
-                        } else {
-                            Stopwatch.laps.push("Lap " + lapnum + ": " + counterview.htext + " : " + counterview.mtext
-                                            + " : " + counterview.stext);
-                        }
                     }
 
                     states: [
@@ -209,6 +208,24 @@ Page {
                             PropertyChanges {
                                 target: startlabel; text: "Stop"
                             }
+
+                            StateChangeScript {
+                                script: {
+                                    if (lapnum === 0) {
+                                        lapnum = 1;
+                                        lapbutton.enabled = true;
+                                        starttime = times.startTime();
+                                    }
+                                    if (Stopwatch.LAPS.length > 0) {
+                                        Stopwatch.updateLaps();
+                                    } else {
+                                        Stopwatch.LAPS.push("Lap " + lapnum + ": " + counterview.htext + " : " + counterview.mtext
+                                                        + " : " + counterview.stext);
+                                    }
+                                    HV.LAPS = lapnum;
+                                    HV.ISTIMERRUNNING = timer.running;
+                                }
+                            }
                         },
                         State {
                             name: "stop time"
@@ -218,6 +235,23 @@ Page {
                             }
                             PropertyChanges {
                                 target: startlabel; text: "Start"
+                            }
+                            StateChangeScript {
+                                script: {
+                                    if (lapnum === 0) {
+                                        lapnum = 1;
+                                        lapbutton.enabled = true;
+                                        starttime = times.startTime();
+                                    }
+                                    if (Stopwatch.LAPS.length > 0) {
+                                        Stopwatch.updateLaps();
+                                    } else {
+                                        Stopwatch.LAPS.push("Lap " + lapnum + ": " + counterview.htext + " : " + counterview.mtext
+                                                        + " : " + counterview.stext);
+                                    }
+                                    HV.LAPS = lapnum;
+                                    HV.ISTIMERRUNNING = timer.running;
+                                }
                             }
                         }
                     ]
@@ -251,14 +285,14 @@ Page {
             Column {
                 spacing: 0
                 IconButton {
-                    //text: "Lap"
                     id: lapbutton
                     icon.source: "qrc:/images/images/lapsbutton.png"
+                    scale: 1.1
                     enabled: false
                     state: "released"
                     onClicked: {
                         Stopwatch.updateLaps();
-                        Stopwatch.currentlap = [parseInt(counterview.htext),parseInt(counterview.mtext),parseFloat(counterview.stext)];
+                        Stopwatch.CURRENTLAP = [parseInt(counterview.htext),parseInt(counterview.mtext),parseFloat(counterview.stext)];
                         lapnum += 1;
                         if (lapnum > 2) {
                             timingview.opacity = 1.0
@@ -273,12 +307,13 @@ Page {
                                 timingview.labelcolor = "green"
                             }
                             laptimer.running = true;
-                            Stopwatch.laps.push("Lap " + lapnum + ": " + "000" + " : " + "00"
+                            Stopwatch.LAPS.push("Lap " + lapnum + ": " + "000" + " : " + "00"
                                            + " : " + "00.0");
                         } else {
-                            Stopwatch.laps.push("Lap " + lapnum + ": " + "000" + " : " + "00"
+                            Stopwatch.LAPS.push("Lap " + lapnum + ": " + "000" + " : " + "00"
                                            + " : " + "00.0");
                         }
+                        HV.LAPS = lapnum;
                     }
 
                     onPressed: lapbutton.state = "pressed"
@@ -336,9 +371,12 @@ Page {
         }
     }
     Component.onCompleted: {
+        HV.TIMER = timer;
         counterview.anchors.leftMargin = (frontpage.width - counterview.rw)/2;
         laps.anchors.leftMargin = (frontpage.width - counterview.rw)/2;
     }
+
+
 }
 
 

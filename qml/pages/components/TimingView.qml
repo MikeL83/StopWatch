@@ -18,7 +18,7 @@ Rectangle {
     Label {
         id: timinglabel
         font.family: Theme.fontFamily
-        font.pixelSize: Theme.fontSizeMedium
+        font.pixelSize: Theme.fontSizeExtraLarge
         style: Text.Outline
         font.bold: true
     }

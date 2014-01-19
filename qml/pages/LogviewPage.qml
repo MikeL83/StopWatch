@@ -11,78 +11,117 @@ Page {
     property var logdata: []
 
     SilicaFlickable {
+        id: view
+        clip: true
+        focus: false
         anchors.fill: parent
         PageHeader {
             id: pageheader
             title: logdata.title
         }
         Column {
+            id: col
+            width: parent.width
             anchors {
                 top: pageheader.bottom
                 left: parent.left
-                leftMargin: 20
+                leftMargin: Theme.paddingLarge
                 right: parent.right
-                rightMargin: 20
-                topMargin: 30
+                rightMargin: Theme.paddingLarge
+                topMargin: Theme.paddingLarge
             }
             spacing: 10
-            Label {
-                id: numoflaps
-                x: Theme.paddingSmall
-                text: "Number of laps:   " + logdata.numoflaps
-                font.pixelSize: 26
-                color: Theme.primaryColor
-                style: Text.Sunken
+            Row {
+                id: numoflapsrow
+                spacing: Theme.paddingSmall
+                Label {
+                    text: "Number of laps:"
+                    font.pixelSize: Theme.fontSizeMedium
+                    color: Theme.primaryColor
+                }
+                Label {
+                    id: numoflaps
+                    text: logdata.numoflaps
+                    font.pixelSize: Theme.fontSizeMedium
+                    color: "#0066CC"
+                    font.bold: true
+                }
             }
-            Label {
-                id: tottime
-                x: Theme.paddingSmall
-                text: "Total time:   " + logdata.totaltime
-                font.pixelSize: 26
-                color: Theme.primaryColor
-                style: Text.Sunken
+            Row {
+                id: totaltimerow
+                spacing: Theme.paddingSmall
+                Label {
+                    text: "Total time:"
+                    font.pixelSize: Theme.fontSizeMedium
+                    color: Theme.primaryColor
+                }
+                Label {
+                    text: logdata.totaltime
+                    font.pixelSize: Theme.fontSizeMedium
+                    color: "#0066CC"
+                    font.bold: true
+                }
             }
-            Label {
-                id: maxlaptime
-                x: Theme.paddingSmall
-                text: "Max lap time:   " + logdata.maxlap
-                font.pixelSize: 26
-                color: Theme.primaryColor
-                style: Text.Sunken
+            Row {
+                id: maxlaprow
+                spacing: Theme.paddingSmall
+                Label {
+                    text: "Max lap time:"
+                    font.pixelSize: Theme.fontSizeMedium
+                    color: Theme.primaryColor
+                }
+                Label {
+                    text: logdata.maxlap
+                    font.pixelSize: Theme.fontSizeMedium
+                    color: "#0066CC"
+                    font.bold: true
+                }
             }
-            Label {
-                id: minlaptime
-                x: Theme.paddingSmall
-                text: "Min lap time:   " + logdata.minlap
-                font.pixelSize: 26
-                color: Theme.primaryColor
-                style: Text.Sunken
+            Row {
+                id: minlaprow
+                spacing: Theme.paddingSmall
+                Label {
+                    text: "Min lap time:"
+                    font.pixelSize: Theme.fontSizeMedium
+                    color: Theme.primaryColor
+                }
+                Label {
+                    text: logdata.minlap
+                    font.pixelSize: Theme.fontSizeMedium
+                    color: "#0066CC"
+                    font.bold: true
+                }
+
             }
-            Label {
-                id: meanlaptime
-                x: Theme.paddingSmall
-                text: "Mean lap time:   " + logdata.meanlap
-                font.pixelSize: 26
-                color: Theme.primaryColor
-                style: Text.Sunken
+            Row {
+                id: meanlaprow
+                spacing: Theme.paddingSmall
+                Label {
+                    text: "Mean lap time:"
+                    font.pixelSize: Theme.fontSizeMedium
+                    color: Theme.primaryColor
+                }
+                Label {
+                    text: logdata.meanlap
+                    font.pixelSize: Theme.fontSizeMedium
+                    color: "#0066CC"
+                    font.bold: true
+                }
             }
             Separator {
                 id: separator
-                x: Theme.paddingSmall
-                width: root.width
+                width: col.width
                 height: 2
-                color: "#66CCFF"
+                color: Theme.primaryColor
             }
             TextEdit {
                 id: textarea
-                width: separator.width
-                x: Theme.paddingSmall
                 color: "lightgreen"
                 text: logdata.note
                 wrapMode: TextEdit.WordWrap
                 readOnly: true
                 font.bold: false
-                font.pixelSize: 22
+                font.pixelSize: Theme.fontSizeMedium
                 font.family: Theme.fontFamily
             }
         }
@@ -91,14 +130,14 @@ Page {
                 name: "show textarea"
                 when: textarea.text !== ""
                 PropertyChanges {
-                    target: textarea; opacity: 1.0;
+                    target: textarea; visible: true
                 }
             },
             State {
                 name: "hide textarea "
                 when: textarea.text === ""
                 PropertyChanges {
-                    target: textarea; opacity: 0.0
+                    target: textarea; visible: false
                 }
             }
         ]

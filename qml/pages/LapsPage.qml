@@ -21,26 +21,31 @@ Page {
         }
         spacing: Theme.paddingMedium
         delegate: BackgroundItem {
+            width: parent.width
+            height: col.childrenRect.height
             Column {
+                id: col
                 anchors {
-                    left: parent.left
-                    leftMargin: 20
+                    margins: 0
+                    horizontalCenter: parent.horizontalCenter
                 }
-                spacing: 5
+                spacing: 10
                 Label {
                     id: label
-                    x: Theme.paddingLarge
+                    //x: Theme.paddingLarge
                     text: laps[index]
+                    font.pixelSize: Theme.fontSizeLarge
+                    font.bold: true
+                    color: "#0066CC"
                 }
-                Rectangle {
-                    height: 1
+                Separator {
+                    id: separator
                     width: label.width
-                    x: Theme.paddingLarge
-                    color: "steelblue"
+                    height: 3
+                    color: Theme.primaryColor
                 }
             }
         }
-
         ViewPlaceholder {
             enabled: laps.length === 0
             text: "No current laps"

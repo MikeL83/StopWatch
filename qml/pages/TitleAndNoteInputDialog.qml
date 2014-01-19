@@ -16,33 +16,37 @@ Dialog {
         id: dialogHeader
         width: parent.width
         anchors {
-            topMargin: 40
+            topMargin: Theme.paddingLarge
             left: parent.left
-            leftMargin: 80
         }
     }
     Column {
+        id: col
+        width: parent.width
         anchors {
             top: dialogHeader.bottom
-            topMargin: 40
+            topMargin: Theme.paddingLarge
+            left: parent.left
+            leftMargin: Theme.paddingMedium
         }
-        spacing: 30
+        spacing: Theme.paddingMedium
         TextField {
              id: titleField
+             width: parent.width
              focus: true
-             width: 480
              placeholderText: "Add title..."
              text: title
              onTextChanged: title = text;
+             font.pixelSize: Theme.fontSizeLarge
         }
         TextArea {
             id: textarea
-            width: 480
+            width: parent.width
             color: "lightgreen"
             wrapMode: TextEdit.Wrap
             placeholderText: "Note..."
             text: note
-            font.pixelSize: 22
+            font.pixelSize: Theme.fontSizeMedium
             font.family: Theme.fontFamily
             onTextChanged: note = text
         }

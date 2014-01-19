@@ -31,12 +31,13 @@ Page {
                 onClicked: {
                     SwDB.deleteAll();
                     listModel.clear();
+                    viewPlaceHolder.enabled = true;
                 }
             }
         }
         ViewPlaceholder {
             id: viewPlaceHolder
-            enabled: false
+            enabled: listModel.count === 0
             text: "Logbook empty"
         }
         delegate: LapListDelegate {index_: index}

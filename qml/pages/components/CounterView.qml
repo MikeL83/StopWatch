@@ -19,18 +19,18 @@ Item {
             Label {
                 id: hours
                 text: "000"
-                font.pixelSize: 50
+                font.pixelSize: 70
                 font.family: digitalFont.name
             }
             Label {
                 id: hourTitle
                 text: "hours"
-                font.pixelSize: 16
+                font.pixelSize: 22
             }
         }
         Label {
-            text: "  :  "
-            font.pixelSize: 50
+            text: " : "
+            font.pixelSize: 70
             font.family: digitalFont.name
         }
 
@@ -39,18 +39,18 @@ Item {
             Label {
                 id: minutes
                 text: "00"
-                font.pixelSize: 50
+                font.pixelSize: 70
                 font.family: digitalFont.name
             }
             Label {
                 id: minuteTitle
                 text: "minutes"
-                font.pixelSize: 16
+                font.pixelSize: 22
             }
         }
         Label {
-            text: "  :  "
-            font.pixelSize: 50
+            text: " : "
+            font.pixelSize: 70
             font.family: digitalFont.name
         }
         Column {
@@ -59,13 +59,13 @@ Item {
             Label {
                 id: seconds
                 text: "00.0"
-                font.pixelSize: 50
+                font.pixelSize: 70
                 font.family: digitalFont.name
             }
             Label {
                 id: secondTitle
                 text: "seconds"
-                font.pixelSize: 16
+                font.pixelSize: 22
             }
         }
     }

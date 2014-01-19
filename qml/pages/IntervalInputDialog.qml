@@ -1,6 +1,5 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
-
 //IntervalInputDialog.qml
 
 Dialog {
@@ -12,137 +11,148 @@ Dialog {
 
     SilicaFlickable {
         id: view
+        clip: true
+        focus: false
         anchors.fill: parent
-
+        width: parent.width
         DialogHeader {
             id: dialogHeader
             width: parent.width
             anchors {
-                topMargin: 20
+                topMargin: Theme.paddingLarge
                 left: parent.left
-                leftMargin: 80
             }
         }
         Column {
+            id: col
+            width: parent.width
             anchors {
                 top: dialogHeader.bottom
-                topMargin: 10
-                horizontalCenter: parent.horizontalCenter
+                topMargin: Theme.paddingSmall
+                left: parent.left
+                leftMargin: Theme.paddingLarge*3
+                right: parent.right
+                rightMargin: Theme.paddingLarge*3
             }
-            spacing: 0
+            spacing: Theme.paddingSmall
             TextField {
                  id: numofintervals
-                 width: dialog.width/1.5
+                 width: parent.width
+                 anchors.horizontalCenter: parent.horizontalCenter
                  placeholderText: "Number of intervals..."
                  onTextChanged: !isNaN(parseInt(text)) ? container.intervalnum = parseInt(text) : container.intervalnum = 0
                  validator: IntValidator{bottom: 0; top: 1000}
-                 font.pixelSize: Theme.fontSizeSmall
-                 color: "steelblue"
+                 font.pixelSize: Theme.fontSizeMedium
+                 color: Theme.secondaryHighlightColor
             }
 
             Separator {
-                anchors.margins: 0
                 width: parent.width
-                height: 2
+                height: 3
                 color: Theme.secondaryHighlightColor
             }
 
             Column {
                 spacing: 0
-                anchors.horizontalCenter: parent.horizontalCenter
                 TextField {
-                     anchors.margins: 0
-                     width: dialog.width/1.5
-                     text: "Set interval time"
-                     font.pixelSize: Theme.fontSizeMedium
-                     color: Theme.primaryColor
-                     font.family: Theme.fontFamily
-                     readOnly: true
+                    id: intervaltime
+                    anchors.margins: 0
+                    width: dialog.width
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    text: "Set interval time"
+                    font.pixelSize: Theme.fontSizeLarge
+                    color: Theme.primaryColor
+                    font.family: Theme.fontFamily
+                    readOnly: true
                 }
-                TextField {
-                     id: hours
-                     anchors.margins: 0
-                     width: dialog.width/1.5
-                     placeholderText: "hours"
-                     onTextChanged: !isNaN(parseInt(text)) ? container.h = parseInt(text) : container.h = 0
-                     validator: IntValidator{bottom: 0; top: 999}
-                     font.pixelSize: Theme.fontSizeSmall
-                     color: "steelblue"
-                }
-                TextField {
-                     id: minutes
-                     anchors.margins: 0
-                     width: dialog.width/1.5
-                     placeholderText: "minutes"
-                     onTextChanged: !isNaN(parseInt(text)) ? container.min = parseInt(text) : container.min = 0
-                     validator: IntValidator{bottom: 0; top: 59}
-                     font.pixelSize: Theme.fontSizeSmall
-                     color: "steelblue"
-                }
-                TextField {
-                     id: seconds
-                     anchors.margins: 0
-                     width: dialog.width/1.5
-                     placeholderText: "seconds"
-                     onTextChanged: !isNaN(parseInt(text)) ? container.sec = parseInt(text) : container.sec = 0
-                     validator: IntValidator{bottom: 0; top: 59}
-                     font.pixelSize: Theme.fontSizeSmall
-                     color: "steelblue"
+                Row {
+                    width: dialog.width
+                    anchors.horizontalCenter: intervaltime.horizontalCenter
+                    TextField {
+                         id: hours
+                         width: Math.floor(parent.width/4)
+                         placeholderText: "hour"
+                         onTextChanged: !isNaN(parseInt(text)) ? container.h = parseInt(text) : container.h = 0
+                         validator: IntValidator{bottom: 0; top: 999}
+                         font.pixelSize: Theme.fontSizeMedium
+                         color: Theme.secondaryHighlightColor
+                    }
+                    TextField {
+                         id: minutes
+                         width: Math.floor(parent.width/4)
+                         placeholderText: "min"
+                         onTextChanged: !isNaN(parseInt(text)) ? container.min = parseInt(text) : container.min = 0
+                         validator: IntValidator{bottom: 0; top: 59}
+                         font.pixelSize: Theme.fontSizeMedium
+                         color: Theme.secondaryHighlightColor
+                    }
+                    TextField {
+                        id: seconds
+                        width: Math.floor(parent.width/4)
+                        placeholderText: "sec"
+                        onTextChanged: !isNaN(parseInt(text)) ? container.sec = parseInt(text) : container.sec = 0
+                        validator: IntValidator{bottom: 0; top: 59}
+                        font.pixelSize: Theme.fontSizeMedium
+                        color: Theme.secondaryHighlightColor
+                    }
                 }
 
             }
 
             Separator {
-                anchors.margins: 0
                 width: parent.width
-                height: 2
+                height: 3
                 color: Theme.secondaryHighlightColor
             }
 
             Column {
                 spacing: 0
-                anchors.horizontalCenter: parent.horizontalCenter
                 TextField {
+                     id: resttime
                      anchors.margins: 0
-                     width: parent.width/1.5
+                     width: dialog.width
+                     anchors.horizontalCenter: parent.horizontalCenter
                      text: "Set rest time"
-                     font.pixelSize: Theme.fontSizeMedium
+                     font.pixelSize: Theme.fontSizeLarge
                      color: Theme.primaryColor
                      font.family: Theme.fontFamily
                      readOnly: true
                 }
-                TextField {
-                     id: resttimehours
-                     width: dialog.width/1.5
-                     placeholderText: "hours"
-                     onTextChanged: !isNaN(parseInt(text)) ? container.resttimeh = parseInt(text) : container.resttimeh = 0
-                     validator: IntValidator{bottom: 0; top: 999}
-                     font.pixelSize: Theme.fontSizeSmall
-                     color: "steelblue"
-                }
-                TextField {
-                     id: resttimeminutes
-                     width: dialog.width/1.5
-                     placeholderText: "minutes"
-                     onTextChanged: !isNaN(parseInt(text)) ? container.resttimemin = parseInt(text) : container.resttimemin = 0
-                     validator: IntValidator{bottom: 0; top: 59}
-                     font.pixelSize: Theme.fontSizeSmall
-                     color: "steelblue"
-                }
-                TextField {
-                     id: resttimeseconds
-                     width: dialog.width/1.5
-                     placeholderText: "seconds"
-                     onTextChanged: !isNaN(parseInt(text)) ? container.resttimesec = parseInt(text) : container.resttimesec = 0
-                     validator: IntValidator{bottom: 0; top: 59}
-                     font.pixelSize: Theme.fontSizeSmall
-                     color: "steelblue"
+                Row {
+                    width: dialog.width
+                    anchors.horizontalCenter: resttime.horizontalCenter
+                    TextField {
+                         id: resttimehours
+                         width: Math.floor(parent.width/4)
+                         placeholderText: "hour"
+                         onTextChanged: !isNaN(parseInt(text)) ? container.resttimeh = parseInt(text) : container.resttimeh = 0
+                         validator: IntValidator{bottom: 0; top: 999}
+                         font.pixelSize: Theme.fontSizeMedium
+                         color: Theme.secondaryHighlightColor
+                    }
+                    TextField {
+                         id: resttimeminutes
+                         width: Math.floor(parent.width/4)
+                         placeholderText: "min"
+                         onTextChanged: !isNaN(parseInt(text)) ? container.resttimemin = parseInt(text) : container.resttimemin = 0
+                         validator: IntValidator{bottom: 0; top: 59}
+                         font.pixelSize: Theme.fontSizeMedium
+                         color: Theme.secondaryHighlightColor
+                    }
+                    TextField {
+                         id: resttimeseconds
+                         width: Math.floor(parent.width/4)
+                         placeholderText: "sec"
+                         onTextChanged: !isNaN(parseInt(text)) ? container.resttimesec = parseInt(text) : container.resttimesec = 0
+                         validator: IntValidator{bottom: 0; top: 59}
+                         font.pixelSize: Theme.fontSizeMedium
+                         color: Theme.secondaryHighlightColor
+                    }
                 }
             }
             Separator {
-                anchors.margins: 0
                 width: parent.width
-                height: 2
+                height: 3
                 color: Theme.secondaryHighlightColor
             }
             Slider {
@@ -154,7 +164,7 @@ Dialog {
                  value: 0
                  stepSize: 1
                  valueText: value ? "|" : "O"
-                 label: "Enable sound"
+                 label: "Play sound"
             }
 
         }

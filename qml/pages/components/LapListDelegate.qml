@@ -13,31 +13,37 @@ Item {
     BackgroundItem {
         id: recordItem
         width: parent.width
+        height: col.childrenRect.height
         Column {
+            id: col
             spacing: 10
-            x: Theme.paddingLarge
+            anchors {
+                left: parent.left
+                right: parent.right
+                leftMargin: Theme.paddingLarge
+                rightMargin: Theme.paddingLarge
+            }
             Column {
                 id: titlecolumns
                 spacing: 5
                 Label {
                     id: title
                     text: titleName
-                    font.pixelSize: 24
-                    style: Text.Raised
+                    font.pixelSize: Theme.fontSizeMedium
                 }
                 Label {
                     id: date
                     text: dateStr
-                    font.pixelSize: 20
-                    color: Theme.secondaryColor
-                    style: Text.Raised
+                    font.pixelSize: Math.floor(Theme.fontSizeSmall/1.1)
+                    color: "#0066CC"
+                    font.bold: true
                 }
             }
             Separator {
                 anchors.margins: 0
-                width: root.width
+                width: parent.width
                 height: 2
-                color: "#0099FF"
+                color: Theme.primaryColor
             }
         }
         onPressAndHold: {

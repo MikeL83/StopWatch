@@ -3,6 +3,7 @@ import Sailfish.Silica 1.0
 import QtMultimedia 5.0
 import "components"
 import "scripts/StopWatch.js" as Stopwatch
+import "scripts/HelperVariables.js" as HV
 
 //IntervalTimerPage.qml
 
@@ -84,7 +85,7 @@ Page {
                 topMargin: 40
                 left: counterview.left
             }
-            transform: Translate{x: -Theme.paddingLarge*2}
+            transform: Translate{x: -Theme.paddingLarge}
             text: "Time"
             color: Theme.primaryColor
             font.pixelSize: Theme.fontSizeLarge
@@ -112,8 +113,8 @@ Page {
                 horizontalCenter: parent.horizontalCenter
             }
             text: "Interval" + "   " + intervalnum
-            font.pixelSize: 32
-            color: Theme.secondaryColor
+            font.pixelSize: 45
+            color: Theme.primaryColor
 
             Component.onCompleted: {
                 anchors.topMargin = counterview.rh + Theme.paddingLarge
@@ -133,6 +134,7 @@ Page {
                 IconButton {
                     id: resetbutton
                     icon.source: "qrc:/images/images/resetbutton.png"
+                    scale: 1.1
                     state: "released"
                     hoverEnabled: true
                     onClicked: {
@@ -188,6 +190,7 @@ Page {
                 IconButton {
                     id: startbutton
                     icon.source: "qrc:/images/images/playbutton.png"
+                    scale: 1.1
                     onPressed: {
                         if (Stopwatch.checkEndingforInterval() || timerForResttime.running) {
                             return;
@@ -210,6 +213,11 @@ Page {
                             PropertyChanges {
                                 target: startlabel; text: "Stop"
                             }
+                            StateChangeScript {
+                                script: {
+                                    HV.ISINTERVALTIMERRUNNING = timer.running;
+                                }
+                            }
                         },
                         State {
                             name: "stop time"
@@ -219,6 +227,11 @@ Page {
                             }
                             PropertyChanges {
                                 target: startlabel; text: "Start"
+                            }
+                            StateChangeScript {
+                                script: {
+                                    HV.ISINTERVALTIMERRUNNING = timer.running;
+                                }
                             }
                         }
                     ]
@@ -277,8 +290,29 @@ Page {
             Component.onCompleted: {
                 width = rw;
             }
-
         }
+
+        states: [
+            State {
+                name: "resttimerrunning"
+                when: timerForResttime.running
+                StateChangeScript {
+                    script: {
+                        HV.ISINTERVALRESTTIMERRUNNING = true;
+                    }
+                }
+            },
+            State {
+                name: "resttimernotrunning"
+                when: !timerForResttime.running
+                StateChangeScript {
+                    script: {
+                        HV.ISINTERVALRESTTIMERRUNNING = false;
+                    }
+                }
+
+            }
+        ]
 
     }
     onStatusChanged: {
@@ -289,6 +323,9 @@ Page {
             resttimeview.htext = Stopwatch.displayTimeforHours(resttimeh)
             resttimeview.mtext = Stopwatch.displayTime(resttimemin)
             resttimeview.stext = Stopwatch.displayTimeforSecs(resttimesec)
+        } else if (status === PageStatus.Deactivating) {
+            HV.ISINTERVALTIMERRUNNING = false;
+            HV.ISINTERVALRESTTIMERRUNNING = false;
         }
     }
 }

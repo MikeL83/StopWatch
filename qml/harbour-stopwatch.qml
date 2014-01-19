@@ -32,9 +32,12 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 import "pages"
 import "pages/scripts/StopWatchDB.js" as SwDB
+import "pages/scripts/StopWatch.js" as Sw
+import "pages/scripts/HelperVariables.js" as HV
 
 ApplicationWindow
 {
+    id: appWindow
     initialPage: Component {
         FrontPage{}
     }
@@ -42,6 +45,22 @@ ApplicationWindow
 
     Component.onCompleted: {
         SwDB.openDB();
+    }
+
+    onApplicationActiveChanged: {
+        if (HV.ISTIMERRUNNING && appWindow.applicationActive && times.getElapsedTimeOnSleep() > 2000) {
+            if (parseInt(HV.TIMESBEFORESLEEP.reduce(function(prev,cur) {return prev + cur})) !== 0) {
+                HV.ISUPDATEAVAILABLE = true;
+            }
+        } else if (!appWindow.applicationActive && times.isDeviceSleep()) {
+            if (HV.ISTIMERRUNNING) {
+                HV.ISUPDATEAVAILABLE = false;
+                HV.TIMESBEFORESLEEP = [parseInt(HV.COVERCOUNTER.htext),parseInt(HV.COVERCOUNTER.mtext),
+                                       parseFloat(HV.COVERCOUNTER.stext)];
+            } else if (HV.ISINTERVALTIMERRUNNING || HV.ISINTERVALRESTTIMERRUNNING) {
+                times.setDisplayModeOn();
+            }
+        }
     }
 }
 

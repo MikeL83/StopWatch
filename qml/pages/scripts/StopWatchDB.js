@@ -45,6 +45,7 @@ function readLogbook() {
     });
     return data;
 }
+
 function deleteAll() {
     db.transaction( function(tx) {
        tx.executeSql("\
