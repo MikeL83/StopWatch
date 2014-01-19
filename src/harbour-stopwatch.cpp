@@ -31,9 +31,11 @@
 #ifdef QT_QML_DEBUG
 #include <QtQuick>
 #endif
-
+#include <QGuiApplication>
+#include <QQuickView>
+#include <QtQml/QQmlContext>
 #include <sailfishapp.h>
-
+#include "times.h"
 
 int main(int argc, char *argv[])
 {
@@ -46,6 +48,18 @@ int main(int argc, char *argv[])
     //
     // To display the view, call "show()" (will show fullscreen on device).
 
-    return SailfishApp::main(argc, argv);
+    QScopedPointer<QGuiApplication> app(
+        SailfishApp::application(argc, argv));
+    Times times;
+
+    QScopedPointer<QQuickView> view(SailfishApp::createView());
+
+    view->rootContext()->setContextProperty("times", &times);
+
+    view->setSource(SailfishApp::pathTo("qml/harbour-stopwatch.qml"));
+
+    view->show();
+
+    return app->exec();
 }
 
