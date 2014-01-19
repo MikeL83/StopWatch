@@ -19,11 +19,12 @@ Group:      Qt/Qt
 License:    LICENSE
 Source0:    %{name}-%{version}.tar.bz2
 Source100:  harbour-stopwatch.yaml
+Requires:   qmsystem-qt5
 Requires:   sailfishsilica-qt5
-BuildRequires:  pkgconfig(sailfishapp)
-BuildRequires:  pkgconfig(Qt5Quick)
-BuildRequires:  pkgconfig(Qt5Qml)
 BuildRequires:  pkgconfig(Qt5Core)
+BuildRequires:  pkgconfig(Qt5Qml)
+BuildRequires:  pkgconfig(Qt5Quick)
+BuildRequires:  pkgconfig(sailfishapp)
 BuildRequires:  desktop-file-utils
 
 %description
@@ -62,9 +63,9 @@ desktop-file-install --delete-original       \
 
 %files
 %defattr(-,root,root,-)
-/usr/share/icons/hicolor/86x86/apps
-/usr/share/harbour-stopwatch
 /usr/share/applications/harbour-stopwatch.desktop
+/usr/share/harbour-stopwatch
+/usr/share/icons/hicolor/86x86/apps
 /usr/bin/harbour-stopwatch
 # >> files
 # << files

@@ -11,18 +11,16 @@ Description: |2+
 Configure: none
 Builder: qtc5
 PkgConfigBR:
-- sailfishapp
-- Qt5Quick
-- Qt5Qml
 - Qt5Core
+- Qt5Qml
+- Qt5Quick
+- sailfishapp
 Requires:
+- qmsystem-qt5
 - sailfishsilica-qt5
 Files:
-- /usr/share/icons/hicolor/86x86/apps
-- /usr/share/harbour-stopwatch
 - /usr/share/applications/harbour-stopwatch.desktop
+- /usr/share/harbour-stopwatch
+- /usr/share/icons/hicolor/86x86/apps
 - /usr/bin/harbour-stopwatch
-- /usr/bin
-- /usr/share/icons/hicolor/86x86/apps/
-- /usr/share/applications
 PkgBR: []
