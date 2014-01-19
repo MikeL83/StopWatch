@@ -8,30 +8,16 @@
 #         - icon definition filename in desktop file must be changed
 TARGET = harbour-stopwatch
 
-#CONFIG += sailfishapp
+CONFIG += sailfishapp
 
-QT += quick qml
+LIBS += -lqmsystem2-qt5
+DEPENDPATH += /usr/include/qmsystem2-qt5
+INCLUDEPATH += /usr/include/qmsystem2-qt5
 
-CONFIG += link_pkgconfig
-PKGCONFIG += sailfishapp
-INCLUDEPATH += /usr/include/sailfishapp
+QMAKE_CXXFLAGS += -std=c++0x
 
-TARGETPATH = /usr/bin
-target.path = $$TARGETPATH
-
-DEPLOYMENT_PATH = /usr/share/$$TARGET
-qml.files = qml
-qml.path = $$DEPLOYMENT_PATH
-
-desktop.files = harbour-stopwatch.desktop
-desktop.path = /usr/share/applications
-
-icon.files = $${TARGET}.png
-icon.path = /usr/share/icons/hicolor/86x86/apps/
-
-INSTALLS += target icon desktop qml
-
-SOURCES += src/harbour-stopwatch.cpp
+SOURCES += src/harbour-stopwatch.cpp \
+    src/times.cpp
 
 OTHER_FILES += qml/harbour-stopwatch.qml \
     qml/cover/CoverPage.qml \
@@ -50,7 +36,12 @@ OTHER_FILES += qml/harbour-stopwatch.qml \
     qml/pages/components/LapListDelegate.qml \
     qml/pages/components/CounterView.qml \
     qml/pages/scripts/StopWatchDB.js \
-    qml/pages/scripts/StopWatch.js
+    qml/pages/scripts/StopWatch.js \
+    qml/pages/scripts/HelperVariables.js \
+    qml/pages/AboutPage.qml
 
 RESOURCES += \
     harbour-stopwatch-resources.qrc
+
+HEADERS += \
+    src/times.h
