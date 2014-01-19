@@ -65,14 +65,14 @@ Page {
 
         PullDownMenu {
             MenuItem {
-                text: "Set interval"
+                text: qsTr("Set interval")
                 onClicked: pageStack.push(Qt.resolvedUrl("IntervalInputDialog.qml"),{"container": intervalpage})
             }
 
         }
         PageHeader {
             id: pageHeader
-            title: "Stopwatch"
+            title: qsTr("Stopwatch")
             anchors.horizontalCenter: parent.horizontalCenter
         }
 
@@ -86,7 +86,7 @@ Page {
                 left: counterview.left
             }
             transform: Translate{x: -Theme.paddingLarge}
-            text: "Time"
+            text: qsTr("Time")
             color: Theme.primaryColor
             font.pixelSize: Theme.fontSizeLarge
             font.family: Theme.fontFamily
@@ -112,7 +112,7 @@ Page {
                 top: counterview.bottom
                 horizontalCenter: parent.horizontalCenter
             }
-            text: "Interval" + "   " + intervalnum
+            text: qsTr("Interval") + "   " + intervalnum
             font.pixelSize: 45
             color: Theme.primaryColor
 
@@ -179,7 +179,7 @@ Page {
                     ]
                 }
                 Label {
-                    text: "Reset"
+                    text: qsTr("Reset")
                     font.pixelSize: 26
                     anchors.horizontalCenter: resetbutton.horizontalCenter
                     transform: Translate{y:-10}
@@ -211,7 +211,7 @@ Page {
                                 target: startbutton; icon.source: "qrc:/images/images/stopbutton.png"
                             }
                             PropertyChanges {
-                                target: startlabel; text: "Stop"
+                                target: startlabel; text: qsTr("Stop")
                             }
                             StateChangeScript {
                                 script: {
@@ -226,7 +226,7 @@ Page {
                                 target: startbutton; icon.source: "qrc:/images/images/playbutton.png"
                             }
                             PropertyChanges {
-                                target: startlabel; text: "Start"
+                                target: startlabel; text: qsTr("Start")
                             }
                             StateChangeScript {
                                 script: {
@@ -255,7 +255,7 @@ Page {
                 }
                 Label {
                     id: startlabel
-                    text: "Start"
+                    text: qsTr("Start")
                     font.pixelSize: 26
                     anchors.horizontalCenter: startbutton.horizontalCenter
                     transform: Translate{y:-10}
@@ -270,7 +270,7 @@ Page {
                 topMargin: Theme.paddingLarge*2
                 horizontalCenter: parent.horizontalCenter
             }
-            text: "Rest time"
+            text: qsTr("Rest time")
             font.family: Theme.fontFamily
             font.pixelSize: Theme.fontSizeLarge
             color: Theme.primaryColor

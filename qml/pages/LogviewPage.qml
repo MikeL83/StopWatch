@@ -35,7 +35,7 @@ Page {
                 id: numoflapsrow
                 spacing: Theme.paddingSmall
                 Label {
-                    text: "Number of laps:"
+                    text: qsTr("Number of laps:")
                     font.pixelSize: Theme.fontSizeMedium
                     color: Theme.primaryColor
                 }
@@ -51,7 +51,7 @@ Page {
                 id: totaltimerow
                 spacing: Theme.paddingSmall
                 Label {
-                    text: "Total time:"
+                    text: qsTr("Total time:")
                     font.pixelSize: Theme.fontSizeMedium
                     color: Theme.primaryColor
                 }
@@ -66,7 +66,7 @@ Page {
                 id: maxlaprow
                 spacing: Theme.paddingSmall
                 Label {
-                    text: "Max lap time:"
+                    text: qsTr("Max lap time:")
                     font.pixelSize: Theme.fontSizeMedium
                     color: Theme.primaryColor
                 }
@@ -81,7 +81,7 @@ Page {
                 id: minlaprow
                 spacing: Theme.paddingSmall
                 Label {
-                    text: "Min lap time:"
+                    text: qsTr("Min lap time:")
                     font.pixelSize: Theme.fontSizeMedium
                     color: Theme.primaryColor
                 }
@@ -97,7 +97,7 @@ Page {
                 id: meanlaprow
                 spacing: Theme.paddingSmall
                 Label {
-                    text: "Mean lap time:"
+                    text: qsTr("Mean lap time:")
                     font.pixelSize: Theme.fontSizeMedium
                     color: Theme.primaryColor
                 }

@@ -17,7 +17,7 @@ Page {
         model: laps.length
         anchors.fill: parent
         header: PageHeader {
-            title: "Lap timings"
+            title: qsTr("Lap timings")
         }
         spacing: Theme.paddingMedium
         delegate: BackgroundItem {
@@ -48,7 +48,7 @@ Page {
         }
         ViewPlaceholder {
             enabled: laps.length === 0
-            text: "No current laps"
+            text: qsTr("No current laps")
         }
     }
 }

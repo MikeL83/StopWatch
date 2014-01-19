@@ -53,21 +53,24 @@ Page {
 
         PullDownMenu {
             MenuItem {
-                text: "Laps"
+                text: qsTr("About")
+                onClicked: pageStack.push(Qt.resolvedUrl("AboutPage.qml"));
+            }
+            MenuItem {
+                text: qsTr("Laps")
                 onClicked: {
                     Stopwatch.updateLaps();
                     pageStack.push(Qt.resolvedUrl("LapsPage.qml"),{"laps": Stopwatch.LAPS});
                 }
             }
             MenuItem {
-                text: "Logbook"
+                text: qsTr("Logbook")
                 onClicked: pageStack.push(Qt.resolvedUrl("LogbookPage.qml"));
             }
             MenuItem {
-                text: "Interval timer"
+                text: qsTr("Interval timer")
                 onClicked: pageStack.push(Qt.resolvedUrl("IntervalTimerPage.qml"));
             }
-
         }
         PageHeader {
             id: pageHeader
@@ -84,7 +87,7 @@ Page {
                 left: counterview.left
             }
             transform: Translate{x: -Theme.paddingLarge}
-            text: "Elapsed Time"
+            text: qsTr("Elapsed Time")
             font.pixelSize: Theme.fontSizeLarge
             font.family: Theme.fontFamily
 
@@ -106,7 +109,7 @@ Page {
                 top: counterview.bottom
                 horizontalCenter: parent.horizontalCenter
             }
-            text: "Lap" + "   " + lapnum
+            text: qsTr("Lap") + "   " + lapnum
             font.pixelSize: 45
             color: Theme.primaryColor
 
@@ -181,7 +184,7 @@ Page {
                     ]
                 }
                 Label {
-                    text: "Reset"
+                    text: qsTr("Reset")
                     font.pixelSize: 26
                     font.family: Theme.fontFamily
                     anchors.horizontalCenter: resetbutton.horizontalCenter
@@ -206,24 +209,25 @@ Page {
                                 target: startbutton; icon.source: "qrc:/images/images/stopbutton.png"
                             }
                             PropertyChanges {
-                                target: startlabel; text: "Stop"
+                                target: startlabel; text: qsTr("Stop")
                             }
-
                             StateChangeScript {
                                 script: {
-                                    if (lapnum === 0) {
-                                        lapnum = 1;
-                                        lapbutton.enabled = true;
-                                        starttime = times.startTime();
+                                    if (timer.running) {
+                                        if (lapnum === 0) {
+                                            lapnum = 1;
+                                            lapbutton.enabled = true;
+                                            starttime = times.startTime();
+                                        }
+                                        if (Stopwatch.LAPS.length > 0) {
+                                            Stopwatch.updateLaps();
+                                        } else {
+                                            Stopwatch.LAPS.push("Lap " + lapnum + ": " + counterview.htext + " : " + counterview.mtext
+                                                            + " : " + counterview.stext);
+                                        }
+                                        HV.LAPS = lapnum;
+                                        HV.ISTIMERRUNNING = timer.running;
                                     }
-                                    if (Stopwatch.LAPS.length > 0) {
-                                        Stopwatch.updateLaps();
-                                    } else {
-                                        Stopwatch.LAPS.push("Lap " + lapnum + ": " + counterview.htext + " : " + counterview.mtext
-                                                        + " : " + counterview.stext);
-                                    }
-                                    HV.LAPS = lapnum;
-                                    HV.ISTIMERRUNNING = timer.running;
                                 }
                             }
                         },
@@ -234,23 +238,22 @@ Page {
                                 target: startbutton; icon.source: "qrc:/images/images/playbutton.png"
                             }
                             PropertyChanges {
-                                target: startlabel; text: "Start"
+                                target: startlabel; text: qsTr("Start")
                             }
                             StateChangeScript {
                                 script: {
-                                    if (lapnum === 0) {
-                                        lapnum = 1;
-                                        lapbutton.enabled = true;
-                                        starttime = times.startTime();
+                                    if (!timer.running) {
+                                        if (lapnum > 0) {
+                                            if (Stopwatch.LAPS.length > 0) {
+                                                Stopwatch.updateLaps();
+                                            } else {
+                                                Stopwatch.LAPS.push("Lap " + lapnum + ": " + counterview.htext + " : " + counterview.mtext
+                                                                + " : " + counterview.stext);
+                                            }
+                                        }
+                                        HV.LAPS = lapnum;
+                                        HV.ISTIMERRUNNING = timer.running;
                                     }
-                                    if (Stopwatch.LAPS.length > 0) {
-                                        Stopwatch.updateLaps();
-                                    } else {
-                                        Stopwatch.LAPS.push("Lap " + lapnum + ": " + counterview.htext + " : " + counterview.mtext
-                                                        + " : " + counterview.stext);
-                                    }
-                                    HV.LAPS = lapnum;
-                                    HV.ISTIMERRUNNING = timer.running;
                                 }
                             }
                         }
@@ -275,7 +278,7 @@ Page {
                 }
                 Label {
                     id: startlabel
-                    text: "Start"
+                    text: qsTr("Start")
                     font.pixelSize: 26
                     font.family: Theme.fontFamily
                     anchors.horizontalCenter: startbutton.horizontalCenter
@@ -351,7 +354,7 @@ Page {
                     ]
                 }
                 Label {
-                    text: "Lap"
+                    text: qsTr("Lap")
                     font.pixelSize: 26
                     font.family: Theme.fontFamily
                     anchors.horizontalCenter: lapbutton.horizontalCenter

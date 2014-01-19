@@ -24,7 +24,7 @@ Item {
             }
             Label {
                 id: hourTitle
-                text: "hours"
+                text: qsTr("hours")
                 font.pixelSize: 22
             }
         }
@@ -44,7 +44,7 @@ Item {
             }
             Label {
                 id: minuteTitle
-                text: "minutes"
+                text: qsTr("minutes")
                 font.pixelSize: 22
             }
         }
@@ -64,7 +64,7 @@ Item {
             }
             Label {
                 id: secondTitle
-                text: "seconds"
+                text: qsTr("seconds")
                 font.pixelSize: 22
             }
         }

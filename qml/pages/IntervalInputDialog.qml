@@ -39,11 +39,12 @@ Dialog {
                  id: numofintervals
                  width: parent.width
                  anchors.horizontalCenter: parent.horizontalCenter
-                 placeholderText: "Number of intervals..."
+                 placeholderText: qsTr("Number of intervals...")
                  onTextChanged: !isNaN(parseInt(text)) ? container.intervalnum = parseInt(text) : container.intervalnum = 0
-                 validator: IntValidator{bottom: 0; top: 1000}
+                 validator: IntValidator{bottom: 0; top: 10000}
                  font.pixelSize: Theme.fontSizeMedium
-                 color: Theme.secondaryHighlightColor
+                 errorHighlight: text ? !acceptableInput : false
+                 inputMethodHints: Qt.ImhDigitsOnly | Qt.ImhNoPredictiveText
             }
 
             Separator {
@@ -59,7 +60,7 @@ Dialog {
                     anchors.margins: 0
                     width: dialog.width
                     anchors.horizontalCenter: parent.horizontalCenter
-                    text: "Set interval time"
+                    text: qsTr("Set interval time")
                     font.pixelSize: Theme.fontSizeLarge
                     color: Theme.primaryColor
                     font.family: Theme.fontFamily
@@ -71,29 +72,32 @@ Dialog {
                     TextField {
                          id: hours
                          width: Math.floor(parent.width/4)
-                         placeholderText: "hour"
+                         placeholderText: qsTr("hour")
                          onTextChanged: !isNaN(parseInt(text)) ? container.h = parseInt(text) : container.h = 0
                          validator: IntValidator{bottom: 0; top: 999}
                          font.pixelSize: Theme.fontSizeMedium
-                         color: Theme.secondaryHighlightColor
+                         errorHighlight: text ? !acceptableInput : false
+                         inputMethodHints: Qt.ImhDigitsOnly | Qt.ImhNoPredictiveText
                     }
                     TextField {
                          id: minutes
                          width: Math.floor(parent.width/4)
-                         placeholderText: "min"
+                         placeholderText: qsTr("min")
                          onTextChanged: !isNaN(parseInt(text)) ? container.min = parseInt(text) : container.min = 0
                          validator: IntValidator{bottom: 0; top: 59}
                          font.pixelSize: Theme.fontSizeMedium
-                         color: Theme.secondaryHighlightColor
+                         errorHighlight: text ? !acceptableInput : false
+                         inputMethodHints: Qt.ImhDigitsOnly | Qt.ImhNoPredictiveText
                     }
                     TextField {
                         id: seconds
                         width: Math.floor(parent.width/4)
-                        placeholderText: "sec"
+                        placeholderText: qsTr("sec")
                         onTextChanged: !isNaN(parseInt(text)) ? container.sec = parseInt(text) : container.sec = 0
                         validator: IntValidator{bottom: 0; top: 59}
                         font.pixelSize: Theme.fontSizeMedium
-                        color: Theme.secondaryHighlightColor
+                        errorHighlight: text ? !acceptableInput : false
+                        inputMethodHints: Qt.ImhDigitsOnly | Qt.ImhNoPredictiveText
                     }
                 }
 
@@ -112,7 +116,7 @@ Dialog {
                      anchors.margins: 0
                      width: dialog.width
                      anchors.horizontalCenter: parent.horizontalCenter
-                     text: "Set rest time"
+                     text: qsTr("Set rest time")
                      font.pixelSize: Theme.fontSizeLarge
                      color: Theme.primaryColor
                      font.family: Theme.fontFamily
@@ -124,29 +128,32 @@ Dialog {
                     TextField {
                          id: resttimehours
                          width: Math.floor(parent.width/4)
-                         placeholderText: "hour"
+                         placeholderText: qsTr("hour")
                          onTextChanged: !isNaN(parseInt(text)) ? container.resttimeh = parseInt(text) : container.resttimeh = 0
                          validator: IntValidator{bottom: 0; top: 999}
                          font.pixelSize: Theme.fontSizeMedium
-                         color: Theme.secondaryHighlightColor
+                         errorHighlight: text ? !acceptableInput : false
+                         inputMethodHints: Qt.ImhDigitsOnly | Qt.ImhNoPredictiveText
                     }
                     TextField {
                          id: resttimeminutes
                          width: Math.floor(parent.width/4)
-                         placeholderText: "min"
+                         placeholderText: qsTr("min")
                          onTextChanged: !isNaN(parseInt(text)) ? container.resttimemin = parseInt(text) : container.resttimemin = 0
                          validator: IntValidator{bottom: 0; top: 59}
                          font.pixelSize: Theme.fontSizeMedium
-                         color: Theme.secondaryHighlightColor
+                         errorHighlight: text ? !acceptableInput : false
+                         inputMethodHints: Qt.ImhDigitsOnly | Qt.ImhNoPredictiveText
                     }
                     TextField {
                          id: resttimeseconds
                          width: Math.floor(parent.width/4)
-                         placeholderText: "sec"
+                         placeholderText: qsTr("sec")
                          onTextChanged: !isNaN(parseInt(text)) ? container.resttimesec = parseInt(text) : container.resttimesec = 0
                          validator: IntValidator{bottom: 0; top: 59}
                          font.pixelSize: Theme.fontSizeMedium
-                         color: Theme.secondaryHighlightColor
+                         errorHighlight: text ? !acceptableInput : false
+                         inputMethodHints: Qt.ImhDigitsOnly | Qt.ImhNoPredictiveText
                     }
                 }
             }
@@ -164,7 +171,7 @@ Dialog {
                  value: 0
                  stepSize: 1
                  valueText: value ? "|" : "O"
-                 label: "Play sound"
+                 label: qsTr("Play sound")
             }
 
         }

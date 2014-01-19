@@ -22,12 +22,12 @@ Page {
         anchors.fill: parent
         header: PageHeader {
             id: pageheader
-            title: "Logbook details"
+            title: qsTr("Logbook details")
         }
         spacing: Theme.paddingMedium
         PullDownMenu {
             MenuItem {
-                text: "Delete all records"
+                text: qsTr("Delete all records")
                 onClicked: {
                     SwDB.deleteAll();
                     listModel.clear();
@@ -38,7 +38,7 @@ Page {
         ViewPlaceholder {
             id: viewPlaceHolder
             enabled: listModel.count === 0
-            text: "Logbook empty"
+            text: qsTr("Logbook empty")
         }
         delegate: LapListDelegate {index_: index}
 
@@ -46,14 +46,14 @@ Page {
             id: contextMenuComponent
             ContextMenu {
                 MenuItem {
-                    text: "Add info"
+                    text: qsTr("Add info")
                     onClicked: {
                         pageStack.push(Qt.resolvedUrl("TitleAndNoteInputDialog.qml"),{"stime": log[currentIndex].starttime,
                                         "note": log[currentIndex].note,"title": log[currentIndex].title})
                     }
                 }
                 MenuItem {
-                    text: "Delete record"
+                    text: qsTr("Delete record")
                     onClicked: {
                         SwDB.deleteRecord(log[currentIndex].starttime);
                         listModel.remove(currentIndex)

@@ -34,7 +34,7 @@ Dialog {
              id: titleField
              width: parent.width
              focus: true
-             placeholderText: "Add title..."
+             placeholderText: qsTr("Add title...")
              text: title
              onTextChanged: title = text;
              font.pixelSize: Theme.fontSizeLarge
@@ -44,7 +44,7 @@ Dialog {
             width: parent.width
             color: "lightgreen"
             wrapMode: TextEdit.Wrap
-            placeholderText: "Note..."
+            placeholderText: qsTr("Note...")
             text: note
             font.pixelSize: Theme.fontSizeMedium
             font.family: Theme.fontFamily
